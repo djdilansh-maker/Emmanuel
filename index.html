@@ -9,12 +9,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    /* Reveal animation helpers */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease-out, transform 700ms ease-out; will-change: opacity, transform; }
     .reveal.reveal--visible { opacity: 1; transform: translateY(0); }
 
+    /* Hero entry animation on load */
     .hero-animate { opacity: 0; transform: translateY(18px) scale(0.995); transition: opacity 900ms ease-out, transform 900ms ease-out; }
     .hero-animate.hero--visible { opacity: 1; transform: translateY(0) scale(1); }
 
+    /* Floating action buttons */
     .chat-buttons { position: fixed; right: 1rem; bottom: 1rem; z-index: 60; display: grid; gap: 0.75rem; align-items: end; }
     .chat-btn { display:flex; align-items:center; gap:0.75rem; color: white; padding: .6rem .8rem; border-radius: 9999px; box-shadow: 0 8px 20px rgba(15,23,42,0.18); transform-origin: right bottom; transition: transform 160ms ease, box-shadow 160ms ease, opacity 200ms; text-decoration:none; }
     .chat-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 30px rgba(15,23,42,0.22); }
@@ -22,28 +25,35 @@
 
     @media (max-width:420px){ .chat-label { display:none; } }
 
+    /* Ticker */
     .ticker { overflow: hidden; position: relative; height: 2.2rem; }
     .ticker-list { position: absolute; animation: tickerMove 12s linear infinite; }
     @keyframes tickerMove { 0% { transform: translateY(0%); } 25% { transform: translateY(-25%); } 50% { transform: translateY(-50%); } 75% { transform: translateY(-75%); } 100% { transform: translateY(-100%); } }
 
+    /* Masonry-like gallery */
     .gallery-item:nth-child(3n+1) { grid-row: span 2; }
     .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; border-radius:0.5rem; }
+
+    /* Small accessibility helper for hidden labels on very small screens */
+    .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
   </style>
 </head>
 <body class="antialiased text-slate-800">
 
+  <!-- Sticky Header -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <a href="#" class="flex items-center gap-3">
-          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain" />
+          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain"/>
           <div class="hidden sm:block">
             <div class="text-lg font-semibold">Emmanuel Senior Secondary School</div>
             <div class="text-xs text-slate-500">Tonk, Rajasthan 304001</div>
           </div>
         </a>
 
-        <nav class="hidden md:flex items-center gap-6">
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-6" aria-label="Primary navigation">
           <a href="#home" class="text-slate-700 hover:text-sky-600">Home</a>
           <a href="#about" class="text-slate-700 hover:text-sky-600">About Us</a>
           <a href="#academics" class="text-slate-700 hover:text-sky-600">Academics</a>
@@ -56,12 +66,13 @@
           <a href="#contact" class="text-slate-700 hover:text-sky-600">Contact Us</a>
         </nav>
 
+        <!-- Mobile menu button -->
         <div class="md:hidden">
           <button id="mobile-menu-btn" aria-controls="mobile-menu" aria-expanded="false" class="p-2 rounded-md text-slate-700 hover:bg-slate-100">
-            <svg id="icon-open" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg id="icon-open" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
             </svg>
-            <svg id="icon-close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg id="icon-close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
@@ -69,8 +80,9 @@
       </div>
     </div>
 
+    <!-- Mobile nav -->
     <div id="mobile-menu" class="md:hidden px-4 pb-4" hidden>
-      <nav class="space-y-2">
+      <nav class="space-y-2" aria-label="Mobile navigation">
         <a href="#home" class="block py-2 px-3 rounded hover:bg-slate-50">Home</a>
         <a href="#about" class="block py-2 px-3 rounded hover:bg-slate-50">About Us</a>
         <a href="#academics" class="block py-2 px-3 rounded hover:bg-slate-50">Academics</a>
@@ -86,6 +98,7 @@
   </header>
 
   <main class="overflow-x-hidden">
+    <!-- HERO -->
     <section id="home" class="relative">
       <div class="relative bg-cover bg-center" style="background-image:linear-gradient(rgba(2,6,23,0.45), rgba(2,6,23,0.25)), url('image1.jpg');">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,7 +130,7 @@
 
               <div class="reveal p-4">
                 <div class="rounded-xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-sm">
-                  <img src="image1.jpg" alt="Emmanuel School Building" class="w-full h-72 sm:h-96 object-cover" />
+                  <img src="image1.jpg" alt="Emmanuel School Building" class="w-full h-72 sm:h-96 object-cover"/>
                 </div>
               </div>
             </div>
@@ -126,6 +139,7 @@
       </div>
     </section>
 
+    <!-- About -->
     <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         <div class="lg:col-span-2">
@@ -152,6 +166,7 @@
           </div>
         </div>
 
+        <!-- Principal's Message -->
         <aside class="bg-slate-50 p-6 rounded-lg shadow-sm reveal" data-reveal>
           <h3 class="text-lg font-semibold mb-3">Message from the Principal</h3>
           <p class="text-slate-700">Dear Students, Parents, and Visitors, It gives me immense pleasure to welcome you to our school website. Education is not only about gaining knowledge; it is also about developing character, confidence, and responsibility. At our school, we strive to create an environment where every student feels encouraged to learn, explore, and achieve their goals. We believe that the partnership between teachers, parents, and students is essential for success. Together, we can build a brighter future for our children. With best wishes, Principal.</p>
@@ -159,6 +174,7 @@
       </div>
     </section>
 
+    <!-- Academics -->
     <section id="academics" class="bg-white/50 border-t border-b border-slate-100 py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold mb-6 reveal" data-reveal>Academics</h2>
@@ -204,6 +220,7 @@
       </div>
     </section>
 
+    <!-- Facilities -->
     <section id="facilities" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h2 class="text-2xl font-bold mb-4 reveal" data-reveal>Facilities</h2>
       <p class="text-slate-700 reveal" data-reveal>Our school aims to provide facilities that support academic achievement and the all-round development of students.</p>
@@ -236,6 +253,7 @@
       </div>
     </section>
 
+    <!-- Admissions -->
     <section id="admissions" class="bg-sky-50 py-16">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row gap-8 items-start">
@@ -270,12 +288,13 @@
           <aside class="md:w-72 bg-white p-5 rounded-lg shadow-sm reveal" data-reveal>
             <h4 class="font-semibold">Need Directions?</h4>
             <p class="mt-2 text-slate-600">Find us in Tonk, Rajasthan 304001.</p>
-            <a class="mt-4 inline-block px-4 py-2 bg-white border border-slate-200 rounded hover:bg-slate-50" href="https://www.google.com/maps/search/?api=1&query=Tonk,+Rajasthan+304001" target="_blank" rel="noopener noreferrer">Get Directions</a>
+            <a class="mt-4 inline-block px-4 py-2 bg-white border border-slate-200 rounded hover:bg-slate-50" href="https://www.google.com/maps/search/?api=1&query=Emmanuel+Senior+Secondary+School+Tonk" target="_blank" rel="noopener noreferrer">Get Directions</a>
           </aside>
         </div>
       </div>
     </section>
 
+    <!-- Activities -->
     <section id="activities" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h2 class="text-2xl font-bold reveal" data-reveal>School Activities</h2>
       <p class="text-slate-700 mt-3 reveal" data-reveal>Learning Beyond the Classroom. We encourage students to participate in activities that help develop confidence, creativity, and leadership.</p>
@@ -294,6 +313,7 @@
       </ul>
     </section>
 
+    <!-- Notices & Gallery -->
     <section id="notices" class="bg-slate-50 py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row gap-8">
@@ -316,18 +336,30 @@
           <div id="gallery" class="lg:w-2/3">
             <h3 class="font-semibold mb-4">Memories & Achievements — Gallery</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
-              <div class="gallery-item reveal" data-reveal><img src="image1.jpg" alt="School Campus"></div>
-              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1541417902300-7a8ae1b5b5c9?auto=format&fit=crop&w=800&q=60" alt="Students in class"></div>
-              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=60" alt="Sports event"></div>
-              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1581092795368-7b1b0c9f3eeb?auto=format&fit=crop&w=800&q=60" alt="Science exhibition"></div>
-              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=60" alt="Annual day"></div>
-              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=60" alt="Library"></div>
+              <!-- Provided school image + curated school-appropriate images -->
+              <div class="gallery-item reveal" data-reveal><img src="image1.jpg" alt="School Campus" loading="lazy"></div>
+
+              <!-- Classroom / students (Unsplash - school/classroom focused) -->
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1584697964154-0b1b3d7b6a9c?auto=format&fit=crop&w=1000&q=80" alt="Classroom activity" loading="lazy"></div>
+
+              <!-- Science exhibition / lab -->
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1581092795368-7b1b0c9f3eeb?auto=format&fit=crop&w=1000&q=80" alt="Science exhibition" loading="lazy"></div>
+
+              <!-- Students studying / library -->
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1000&q=80" alt="Students reading" loading="lazy"></div>
+
+              <!-- Sports / playground -->
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80" alt="Sports event" loading="lazy"></div>
+
+              <!-- Library / books -->
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1000&q=80" alt="Library" loading="lazy"></div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Contact -->
     <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div>
@@ -340,39 +372,43 @@
           <p class="text-slate-700 reveal" data-reveal><strong>Principal:</strong> Mrs. Shiby P Assi</p>
 
           <div class="mt-6">
-            <iframe class="w-full h-64 rounded-lg border" src="https://www.google.com/maps?q=Tonk,+Rajasthan+304001&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to Emmanuel Senior Secondary School"></iframe>
+            <!-- Embedded Google Maps place query showing the school's business/profile and location -->
+            <iframe class="w-full h-64 rounded-lg border" src="https://www.google.com/maps?q=Emmanuel+Senior+Secondary+School+Tonk&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to Emmanuel Senior Secondary School"></iframe>
+            <p class="mt-2 text-sm text-slate-500">Map shows the official business/location entry. Click the map to view photos and business profile from Google Maps.</p>
           </div>
         </div>
 
         <div>
           <h3 class="font-semibold mb-3 reveal" data-reveal>Send a Message</h3>
 
+          <!-- FORM wired to your Formspree endpoint with AJAX submit -->
           <form id="contact-form" class="space-y-4 bg-white p-6 rounded-lg shadow-sm reveal" data-reveal action="https://formspree.io/f/xaeqkpal" method="POST" novalidate>
             <input type="hidden" name="_subject" value="Website contact form submission" />
+
             <div>
               <label class="block text-sm font-medium text-slate-700">Student / Parent Name</label>
-              <input required name="name" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Full name" />
+              <input required name="name" id="name" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Full name">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-medium text-slate-700">Email</label>
-                <input required type="email" name="email" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="example@mail.com" />
+                <input required type="email" name="email" id="email" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="example@mail.com">
               </div>
               <div>
                 <label class="block text-sm font-medium text-slate-700">Phone</label>
-                <input required name="phone" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="+91 9xxxxxxxxx" />
+                <input required name="phone" id="phone" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="+91 9xxxxxxxxx">
               </div>
             </div>
 
             <div>
               <label class="block text-sm font-medium text-slate-700">Subject</label>
-              <input name="subject" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Subject" />
+              <input name="subject" id="subject" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Subject">
             </div>
 
             <div>
               <label class="block text-sm font-medium text-slate-700">Message</label>
-              <textarea name="message" rows="4" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Write your message..." required></textarea>
+              <textarea name="message" id="message" rows="4" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Write your message..." required></textarea>
             </div>
 
             <div class="flex items-center gap-3">
@@ -385,6 +421,7 @@
     </section>
   </main>
 
+  <!-- Floating Chat Buttons -->
   <div class="chat-buttons" aria-hidden="false">
     <a href="https://wa.me/919414201347" target="_blank" rel="noopener noreferrer" class="chat-btn" title="Chat on WhatsApp" aria-label="WhatsApp">
       <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -410,11 +447,12 @@
     </a>
   </div>
 
+  <!-- Footer -->
   <footer class="bg-slate-900 text-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         <div>
-          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain mb-3" />
+          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain mb-3"/>
           <p>Empowering young minds through knowledge, values, and innovation</p>
         </div>
         <div>
@@ -441,7 +479,9 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
+    // Mobile menu toggle
     const btn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const iconOpen = document.getElementById('icon-open');
@@ -450,7 +490,6 @@
     btn && btn.addEventListener('click', () => {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!expanded));
-
       if (mobileMenu.hidden) {
         mobileMenu.hidden = false;
         iconOpen.classList.add('hidden');
@@ -463,9 +502,11 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Hero entry animation on load
       const hero = document.getElementById('hero-card');
       setTimeout(() => hero && hero.classList.add('hero--visible'), 120);
 
+      // IntersectionObserver for reveal animations
       const revealElems = document.querySelectorAll('[data-reveal]');
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -481,6 +522,7 @@
         revealObserver.observe(el);
       });
 
+      // Smooth scroll for internal anchors
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', (ev) => {
           const targetId = a.getAttribute('href').slice(1);
@@ -493,23 +535,47 @@
         });
       });
 
+      // Ticker pause on hover
       const ticker = document.querySelector('.ticker');
       if (ticker) {
-        ticker.addEventListener('mouseenter', () => {
-          const t = ticker.querySelector('.ticker-list');
-          if (t) t.style.animationPlayState = 'paused';
-        });
-        ticker.addEventListener('mouseleave', () => {
-          const t = ticker.querySelector('.ticker-list');
-          if (t) t.style.animationPlayState = 'running';
+        ticker.addEventListener('mouseenter', () => { const t = ticker.querySelector('.ticker-list'); if (t) t.style.animationPlayState = 'paused'; });
+        ticker.addEventListener('mouseleave', () => { const t = ticker.querySelector('.ticker-list'); if (t) t.style.animationPlayState = 'running'; });
+      }
+
+      // AJAX form submit (posts to Formspree, shows success/error without navigating)
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('form-status');
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          status.textContent = 'Sending...';
+          const data = new FormData(form);
+          try {
+            const res = await fetch(form.action, {
+              method: 'POST',
+              body: data,
+              headers: { 'Accept': 'application/json' }
+            });
+            const json = await res.json().catch(() => ({}));
+            if (res.ok) {
+              status.textContent = 'Message sent. We will contact you soon.';
+              form.reset();
+            } else {
+              status.textContent = json.error || 'Submission failed. Please try again.';
+            }
+          } catch (err) {
+            status.textContent = 'Network error. Please try again later.';
+            console.error('Form submit error:', err);
+          }
         });
       }
 
+      // Messenger placeholder guard
       document.querySelectorAll('.chat-buttons a').forEach(a => {
         a.addEventListener('click', (e) => {
           if (a.getAttribute('href') === '#') {
             e.preventDefault();
-            alert('Messenger link is a placeholder. Add your actual Messenger link to enable it.');
+            alert('Messenger link is a placeholder. Provide your Messenger page link to enable it.');
           }
         });
       });
