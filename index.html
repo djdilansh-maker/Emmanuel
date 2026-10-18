@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Emmanuel Senior Secondary School — Tonk, Rajasthan</title>
+  <meta name="description" content="Emmanuel Senior Secondary School, Tonk - Education for Excellence, Values for Life" />
+  <link rel="icon" href="logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease-out, transform 700ms ease-out; will-change: opacity, transform; }
+    .reveal.reveal--visible { opacity: 1; transform: translateY(0); }
+
+    .hero-animate { opacity: 0; transform: translateY(18px) scale(0.995); transition: opacity 900ms ease-out, transform 900ms ease-out; }
+    .hero-animate.hero--visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    .chat-buttons { position: fixed; right: 1rem; bottom: 1rem; z-index: 60; display: grid; gap: 0.75rem; align-items: end; }
+    .chat-btn { display:flex; align-items:center; gap:0.75rem; color: white; padding: .6rem .8rem; border-radius: 9999px; box-shadow: 0 8px 20px rgba(15,23,42,0.18); transform-origin: right bottom; transition: transform 160ms ease, box-shadow 160ms ease, opacity 200ms; text-decoration:none; }
+    .chat-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 30px rgba(15,23,42,0.22); }
+    .chat-icon { width: 1.4rem; height: 1.4rem; flex-shrink:0; }
+
+    @media (max-width:420px){ .chat-label { display:none; } }
+
+    .ticker { overflow: hidden; position: relative; height: 2.2rem; }
+    .ticker-list { position: absolute; animation: tickerMove 12s linear infinite; }
+    @keyframes tickerMove { 0% { transform: translateY(0%); } 25% { transform: translateY(-25%); } 50% { transform: translateY(-50%); } 75% { transform: translateY(-75%); } 100% { transform: translateY(-100%); } }
+
+    .gallery-item:nth-child(3n+1) { grid-row: span 2; }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; border-radius:0.5rem; }
+  </style>
+</head>
+<body class="antialiased text-slate-800">
+
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#" class="flex items-center gap-3">
+          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain" />
+          <div class="hidden sm:block">
+            <div class="text-lg font-semibold">Emmanuel Senior Secondary School</div>
+            <div class="text-xs text-slate-500">Tonk, Rajasthan 304001</div>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#home" class="text-slate-700 hover:text-sky-600">Home</a>
+          <a href="#about" class="text-slate-700 hover:text-sky-600">About Us</a>
+          <a href="#academics" class="text-slate-700 hover:text-sky-600">Academics</a>
+          <a href="#facilities" class="text-slate-700 hover:text-sky-600">Facilities</a>
+          <a href="#admissions" class="text-slate-700 hover:text-sky-600">Admissions</a>
+          <a href="#faculty" class="text-slate-700 hover:text-sky-600">Faculty</a>
+          <a href="#activities" class="text-slate-700 hover:text-sky-600">Activities</a>
+          <a href="#gallery" class="text-slate-700 hover:text-sky-600">Gallery</a>
+          <a href="#notices" class="text-slate-700 hover:text-sky-600">Notices</a>
+          <a href="#contact" class="text-slate-700 hover:text-sky-600">Contact Us</a>
+        </nav>
+
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" aria-controls="mobile-menu" aria-expanded="false" class="p-2 rounded-md text-slate-700 hover:bg-slate-100">
+            <svg id="icon-open" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+            </svg>
+            <svg id="icon-close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden px-4 pb-4" hidden>
+      <nav class="space-y-2">
+        <a href="#home" class="block py-2 px-3 rounded hover:bg-slate-50">Home</a>
+        <a href="#about" class="block py-2 px-3 rounded hover:bg-slate-50">About Us</a>
+        <a href="#academics" class="block py-2 px-3 rounded hover:bg-slate-50">Academics</a>
+        <a href="#facilities" class="block py-2 px-3 rounded hover:bg-slate-50">Facilities</a>
+        <a href="#admissions" class="block py-2 px-3 rounded hover:bg-slate-50">Admissions</a>
+        <a href="#faculty" class="block py-2 px-3 rounded hover:bg-slate-50">Faculty</a>
+        <a href="#activities" class="block py-2 px-3 rounded hover:bg-slate-50">Activities</a>
+        <a href="#gallery" class="block py-2 px-3 rounded hover:bg-slate-50">Gallery</a>
+        <a href="#notices" class="block py-2 px-3 rounded hover:bg-slate-50">Notices</a>
+        <a href="#contact" class="block py-2 px-3 rounded hover:bg-slate-50">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="overflow-x-hidden">
+    <section id="home" class="relative">
+      <div class="relative bg-cover bg-center" style="background-image:linear-gradient(rgba(2,6,23,0.45), rgba(2,6,23,0.25)), url('image1.jpg');">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="py-24 sm:py-28 lg:py-32">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div class="hero-animate p-6 sm:p-10 rounded-xl bg-white/5 backdrop-blur-sm" id="hero-card">
+                <p class="text-sm text-sky-200 font-medium mb-2">Welcome</p>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white">Welcome to Emmanuel Senior Secondary School.</h1>
+                <p class="mt-3 text-slate-100/90 italic">"Education for Excellence, Values for Life"</p>
+                <p class="mt-6 text-slate-200 max-w-xl">
+                  Welcome to Emmanuel Senior Secondary School, where learning meets innovation and students are encouraged to achieve their full potential. Our mission is to provide quality education in a safe, supportive, and inspiring environment. We focus on academic excellence, discipline, creativity, character development, and the overall growth of every student.
+                </p>
+
+                <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-100">
+                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Quality Education</li>
+                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Experienced Teachers</li>
+                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Smart Classrooms and Computer Education</li>
+                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Science and Computer Laboratories</li>
+                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Sports and Extracurricular Activities</li>
+                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Moral Values and Personality Development</li>
+                </ul>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+                  <a href="#about" class="inline-flex items-center px-5 py-3 bg-white text-slate-900 rounded-lg shadow hover:shadow-md">Explore Our School</a>
+                  <a href="#admissions" class="inline-flex items-center px-5 py-3 bg-sky-600 text-white rounded-lg hover:bg-sky-700">Admissions Open</a>
+                  <a href="#contact" class="inline-flex items-center px-5 py-3 border border-white/20 text-white rounded-lg hover:bg-white/5">Contact Us</a>
+                </div>
+              </div>
+
+              <div class="reveal p-4">
+                <div class="rounded-xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-sm">
+                  <img src="image1.jpg" alt="Emmanuel School Building" class="w-full h-72 sm:h-96 object-cover" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div class="lg:col-span-2">
+          <h2 class="text-2xl font-bold mb-3 reveal" data-reveal>About Us</h2>
+          <p class="text-slate-700 reveal" data-reveal>
+            Emmanuel Senior Secondary School is dedicated to providing students with a strong academic foundation and the skills they need to succeed in life. We believe that every child has unique talents and abilities. Our teaching approach encourages curiosity, critical thinking, teamwork, and lifelong learning.
+          </p>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="reveal" data-reveal>
+              <h3 class="font-semibold">Our Vision</h3>
+              <p class="text-slate-700 mt-2">To become a leading educational institution that develops knowledgeable, confident, responsible, and successful individuals.</p>
+            </div>
+            <div class="reveal" data-reveal>
+              <h3 class="font-semibold">Our Mission</h3>
+              <ul class="list-disc pl-5 mt-2 text-slate-700">
+                <li>To provide quality education to every student.</li>
+                <li>To encourage creativity and independent thinking.</li>
+                <li>To develop discipline, honesty, and respect.</li>
+                <li>To promote sports, arts, technology, and innovation.</li>
+                <li>To prepare students for higher education and future careers.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="bg-slate-50 p-6 rounded-lg shadow-sm reveal" data-reveal>
+          <h3 class="text-lg font-semibold mb-3">Message from the Principal</h3>
+          <p class="text-slate-700">Dear Students, Parents, and Visitors, It gives me immense pleasure to welcome you to our school website. Education is not only about gaining knowledge; it is also about developing character, confidence, and responsibility. At our school, we strive to create an environment where every student feels encouraged to learn, explore, and achieve their goals. We believe that the partnership between teachers, parents, and students is essential for success. Together, we can build a brighter future for our children. With best wishes, Principal.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="academics" class="bg-white/50 border-t border-b border-slate-100 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 reveal" data-reveal>Academics</h2>
+        <p class="text-slate-700 reveal" data-reveal>We provide a structured learning environment designed to meet the educational needs of students at different stages.</p>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+            <h4 class="font-semibold">Primary Classes</h4>
+            <ul class="mt-3 text-slate-600 list-disc pl-5">
+              <li>Foundational literacy and numeracy</li>
+              <li>Creative learning activities</li>
+              <li>Language development</li>
+              <li>Basic computer education</li>
+            </ul>
+          </div>
+          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+            <h4 class="font-semibold">Middle Classes</h4>
+            <ul class="mt-3 text-slate-600 list-disc pl-5">
+              <li>Mathematics and Science</li>
+              <li>English and Hindi</li>
+              <li>Social Science</li>
+              <li>Computer Science, Art, sports, and life skills</li>
+            </ul>
+          </div>
+          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+            <h4 class="font-semibold">Secondary Classes</h4>
+            <ul class="mt-3 text-slate-600 list-disc pl-5">
+              <li>Subject-focused learning</li>
+              <li>Practical activities and projects</li>
+              <li>Examination preparation</li>
+              <li>Career awareness and guidance</li>
+            </ul>
+          </div>
+          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+            <h4 class="font-semibold">Senior Secondary</h4>
+            <ul class="mt-3 text-slate-600 list-disc pl-5">
+              <li>Science stream</li>
+              <li>Commerce stream</li>
+              <li>Humanities stream</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="facilities" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-2xl font-bold mb-4 reveal" data-reveal>Facilities</h2>
+      <p class="text-slate-700 reveal" data-reveal>Our school aims to provide facilities that support academic achievement and the all-round development of students.</p>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+          <h4 class="font-semibold">Smart Classrooms</h4>
+          <p class="mt-2 text-slate-600">Technology-supported teaching and learning.</p>
+        </div>
+        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+          <h4 class="font-semibold">Computer Laboratory</h4>
+          <p class="mt-2 text-slate-600">Practical computer education and digital skills.</p>
+        </div>
+        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+          <h4 class="font-semibold">Science Laboratory</h4>
+          <p class="mt-2 text-slate-600">Hands-on learning through experiments.</p>
+        </div>
+        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+          <h4 class="font-semibold">Library</h4>
+          <p class="mt-2 text-slate-600">Books and resources that encourage reading.</p>
+        </div>
+        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+          <h4 class="font-semibold">Sports Facilities</h4>
+          <p class="mt-2 text-slate-600">Opportunities to develop fitness, teamwork, and sportsmanship.</p>
+        </div>
+        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
+          <h4 class="font-semibold">Transport & Safe Campus</h4>
+          <p class="mt-2 text-slate-600">School transportation (where available) and a supportive environment that prioritises student safety.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="admissions" class="bg-sky-50 py-16">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row gap-8 items-start">
+          <div class="md:flex-1">
+            <h2 class="text-2xl font-bold reveal" data-reveal>Admissions Open</h2>
+            <p class="mt-3 text-slate-700 reveal" data-reveal>Give your child the opportunity to learn, grow, and succeed. We welcome applications from students seeking quality education and a supportive learning environment.</p>
+
+            <h3 class="mt-6 font-semibold">Admission Process</h3>
+            <ol class="list-decimal pl-5 mt-2 text-slate-700">
+              <li>Obtain the admission form</li>
+              <li>Complete it with required details</li>
+              <li>Submit necessary documents</li>
+              <li>Attend an interaction/assessment if required</li>
+              <li>Complete formalities</li>
+            </ol>
+
+            <h4 class="mt-4 font-semibold">Documents Required</h4>
+            <ul class="list-disc pl-5 mt-2 text-slate-700">
+              <li>Birth certificate</li>
+              <li>Previous school's report card</li>
+              <li>Transfer certificate</li>
+              <li>Passport-size photographs</li>
+            </ul>
+
+            <p class="mt-4 text-slate-700">Contact the school office for dates, eligibility, and fees.</p>
+
+            <div class="mt-6">
+              <a href="#contact" class="inline-block px-6 py-3 bg-sky-600 text-white rounded-lg hover:bg-sky-700">Apply for Admission</a>
+            </div>
+          </div>
+
+          <aside class="md:w-72 bg-white p-5 rounded-lg shadow-sm reveal" data-reveal>
+            <h4 class="font-semibold">Need Directions?</h4>
+            <p class="mt-2 text-slate-600">Find us in Tonk, Rajasthan 304001.</p>
+            <a class="mt-4 inline-block px-4 py-2 bg-white border border-slate-200 rounded hover:bg-slate-50" href="https://www.google.com/maps/search/?api=1&query=Tonk,+Rajasthan+304001" target="_blank" rel="noopener noreferrer">Get Directions</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="activities" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-2xl font-bold reveal" data-reveal>School Activities</h2>
+      <p class="text-slate-700 mt-3 reveal" data-reveal>Learning Beyond the Classroom. We encourage students to participate in activities that help develop confidence, creativity, and leadership.</p>
+
+      <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Annual Day Celebrations</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Independence Day and Republic Day</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Sports Day</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Science Exhibitions</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Quiz Competitions</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Debate and Speech Competitions</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Art and Craft Activities</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Cultural Programmes</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Environmental Awareness Campaigns</li>
+        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Computer and Technology Projects</li>
+      </ul>
+    </section>
+
+    <section id="notices" class="bg-slate-50 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <div class="lg:w-1/3 bg-white p-5 rounded-lg shadow-sm">
+            <h3 class="font-semibold mb-3">Latest Updates</h3>
+            <div class="ticker bg-sky-50 border border-sky-100 rounded px-4 py-2">
+              <div class="ticker-list">
+                <div class="py-1 text-slate-700">Admissions open for Academic Year 2026-27 — Apply Now</div>
+                <div class="py-1 text-slate-700">Exam schedule released for Class X - Check Notices</div>
+                <div class="py-1 text-slate-700">School Holiday on 2nd Oct — Gandhi Jayanti</div>
+                <div class="py-1 text-slate-700">New Computer Lab introduced with 25 workstations</div>
+              </div>
+            </div>
+
+            <div class="mt-6">
+              <a href="#admissions" class="inline-block px-4 py-2 bg-sky-600 text-white rounded">View All Notices</a>
+            </div>
+          </div>
+
+          <div id="gallery" class="lg:w-2/3">
+            <h3 class="font-semibold mb-4">Memories & Achievements — Gallery</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
+              <div class="gallery-item reveal" data-reveal><img src="image1.jpg" alt="School Campus"></div>
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1541417902300-7a8ae1b5b5c9?auto=format&fit=crop&w=800&q=60" alt="Students in class"></div>
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=60" alt="Sports event"></div>
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1581092795368-7b1b0c9f3eeb?auto=format&fit=crop&w=800&q=60" alt="Science exhibition"></div>
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=60" alt="Annual day"></div>
+              <div class="gallery-item reveal" data-reveal><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=60" alt="Library"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div>
+          <h2 class="text-2xl font-bold reveal" data-reveal>Contact Us</h2>
+          <p class="mt-3 text-slate-700 reveal" data-reveal><strong>Address:</strong> Jaipur Road, near Bus Stand, Tonk, Rajasthan 304001, India</p>
+          <p class="text-slate-700 reveal" data-reveal><strong>Phone:</strong> 01432-248049 / 9414201347</p>
+          <p class="text-slate-700 reveal" data-reveal><strong>Email:</strong> <a href="mailto:emmanueltonk@rediffmail.com" class="text-sky-600">emmanueltonk@rediffmail.com</a></p>
+          <p class="text-slate-700 reveal" data-reveal><strong>Website:</strong> <a href="http://www.emmanuelschooltonk.com" target="_blank" rel="noopener noreferrer" class="text-sky-600">www.emmanuelschooltonk.com</a></p>
+          <p class="text-slate-700 reveal" data-reveal><strong>Affiliation:</strong> CBSE (Affiliation No: 1730313)</p>
+          <p class="text-slate-700 reveal" data-reveal><strong>Principal:</strong> Mrs. Shiby P Assi</p>
+
+          <div class="mt-6">
+            <iframe class="w-full h-64 rounded-lg border" src="https://www.google.com/maps?q=Tonk,+Rajasthan+304001&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to Emmanuel Senior Secondary School"></iframe>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold mb-3 reveal" data-reveal>Send a Message</h3>
+
+          <form id="contact-form" class="space-y-4 bg-white p-6 rounded-lg shadow-sm reveal" data-reveal action="https://formspree.io/f/xaeqkpal" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="Website contact form submission" />
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Student / Parent Name</label>
+              <input required name="name" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Full name" />
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Email</label>
+                <input required type="email" name="email" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="example@mail.com" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Phone</label>
+                <input required name="phone" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="+91 9xxxxxxxxx" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Subject</label>
+              <input name="subject" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Subject" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Message</label>
+              <textarea name="message" rows="4" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Write your message..." required></textarea>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button type="submit" class="px-5 py-3 bg-sky-600 text-white rounded-lg">Submit Message</button>
+              <div id="form-status" class="text-sm text-slate-600" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="chat-buttons" aria-hidden="false">
+    <a href="https://wa.me/919414201347" target="_blank" rel="noopener noreferrer" class="chat-btn" title="Chat on WhatsApp" aria-label="WhatsApp">
+      <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21.7 5.3C20.2 3.8 18.2 3 16 3c-4.4 0-8 3.6-8 8 0 1.4.4 2.7 1.1 3.9L6 21l6.3-3.3c1.1.6 2.4 1 3.7 1 4.4 0 8-3.6 8-8 0-2.2-.8-4.2-2.3-5.7z" fill="#fff"/>
+      </svg>
+      <span class="chat-label font-medium">WhatsApp</span>
+    </a>
+
+    <a href="#" class="chat-btn" title="Message on Facebook Messenger" aria-label="Messenger" style="background:linear-gradient(135deg,#0084ff,#00b2ff);">
+      <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2C6.5 2 2 6 2 10.5 2 13 3.4 15.1 5.6 16.4v3.1L11 18.8c.9.2 1.8.3 2.7.3 5.5 0 10-4 10-8.5S17.5 2 12 2z" fill="#fff"/>
+        <path d="M7.8 12.1 10.5 8.5 13.2 11.7 16.1 8.5 17.4 12.1 13.9 14.5 11.3 11.2 8.6 14.5z" fill="#fff"/>
+      </svg>
+      <span class="chat-label font-medium">Messenger</span>
+    </a>
+
+    <a href="mailto:emmanueltonk@rediffmail.com" class="chat-btn" title="Send an Email" aria-label="Email" style="background:linear-gradient(135deg,#ef4444,#fb7185);">
+      <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v.5L12 13 3 7.5V7z" fill="#fff"/>
+        <path d="M3 8.6V17a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.6L12.4 13.6a1 1 0 0 1-1.4 0L3 8.6z" fill="#fff"/>
+      </svg>
+      <span class="chat-label font-medium">Email</span>
+    </a>
+  </div>
+
+  <footer class="bg-slate-900 text-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div>
+          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain mb-3" />
+          <p>Empowering young minds through knowledge, values, and innovation</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Quick Links</h4>
+          <ul class="space-y-1 text-slate-300">
+            <li><a href="#about" class="hover:text-white">About Us</a></li>
+            <li><a href="#admissions" class="hover:text-white">Admissions</a></li>
+            <li><a href="#gallery" class="hover:text-white">Gallery</a></li>
+            <li><a href="#contact" class="hover:text-white">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Contact</h4>
+          <p class="text-slate-300">Address: Jaipur Road, near Bus Stand, Tonk, Rajasthan 304001</p>
+          <p class="text-slate-300">Phone: 01432-248049 / 9414201347</p>
+          <p class="text-slate-300">Email: <a href="mailto:emmanueltonk@rediffmail.com" class="text-sky-400">emmanueltonk@rediffmail.com</a></p>
+          <p class="text-slate-300">Affiliation: CBSE (Affiliation No: 1730313)</p>
+        </div>
+      </div>
+
+      <div class="mt-8 border-t border-slate-800 pt-6 text-sm text-slate-400 text-center">
+        © 2026 Emmanuel Senior Secondary School. All rights reserved
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+
+    btn && btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+
+      if (mobileMenu.hidden) {
+        mobileMenu.hidden = false;
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+      } else {
+        mobileMenu.hidden = true;
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const hero = document.getElementById('hero-card');
+      setTimeout(() => hero && hero.classList.add('hero--visible'), 120);
+
+      const revealElems = document.querySelectorAll('[data-reveal]');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal--visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealElems.forEach(el => {
+        el.classList.add('reveal');
+        revealObserver.observe(el);
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (ev) => {
+          const targetId = a.getAttribute('href').slice(1);
+          if (!targetId) return;
+          const el = document.getElementById(targetId);
+          if (el) {
+            ev.preventDefault();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      const ticker = document.querySelector('.ticker');
+      if (ticker) {
+        ticker.addEventListener('mouseenter', () => {
+          const t = ticker.querySelector('.ticker-list');
+          if (t) t.style.animationPlayState = 'paused';
+        });
+        ticker.addEventListener('mouseleave', () => {
+          const t = ticker.querySelector('.ticker-list');
+          if (t) t.style.animationPlayState = 'running';
+        });
+      }
+
+      document.querySelectorAll('.chat-buttons a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (a.getAttribute('href') === '#') {
+            e.preventDefault();
+            alert('Messenger link is a placeholder. Add your actual Messenger link to enable it.');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
