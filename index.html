@@ -58,10 +58,10 @@
 
         <div class="md:hidden">
           <button id="mobile-menu-btn" aria-controls="mobile-menu" aria-expanded="false" class="p-2 rounded-md text-slate-700 hover:bg-slate-100">
-            <svg id="icon-open" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg id="icon-open" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
             </svg>
-            <svg id="icon-close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg id="icon-close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
@@ -313,17 +313,21 @@
             </div>
           </div>
 
+          <!-- GALLERY: only uploaded images (image1.jpg and classroom-activity.jpg) -->
           <div id="gallery" class="lg:w-2/3">
-  <h3 class="font-semibold mb-4">Memories & Achievements — Gallery</h3>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
-    <div class="gallery-item reveal" data-reveal>
-      <img src="image1.jpg" alt="School Campus" loading="lazy">
-    </div>
+            <h3 class="font-semibold mb-4">Memories & Achievements — Gallery</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
+              <div class="gallery-item reveal" data-reveal>
+                <img src="image1.jpg" alt="School Campus" loading="lazy">
+              </div>
 
-    <div class="gallery-item reveal" data-reveal>
-      <img src="classroom-activity.jpg" alt="Classroom activity" loading="lazy">
-    </div>
-
+              <div class="gallery-item reveal" data-reveal>
+                <img src="classroom-activity.jpg" alt="Classroom activity" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -393,13 +397,13 @@
       <span class="chat-label font-medium">WhatsApp</span>
     </a>
 
-<a href="https://www.facebook.com/100063489279612/" target="_blank" rel="noopener noreferrer" class="chat-btn" title="Message on Facebook Messenger" aria-label="Messenger" style="background:linear-gradient(135deg,#0084ff,#00b2ff);">
-  <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M12 2C6.5 2 2 6 2 10.5 2 13 3.4 15.1 5.6 16.4v3.1L11 18.8c.9.2 1.8.3 2.7.3 5.5 0 10-4 10-8.5S17.5 2 12 2z" fill="#fff"/>
-    <path d="M7.8 12.1 10.5 8.5 13.2 11.7 16.1 8.5 17.4 12.1 13.9 14.5 11.3 11.2 8.6 14.5z" fill="#fff"/>
-  </svg>
-  <span class="chat-label font-medium">Messenger</span>
-</a>
+    <a href="https://www.facebook.com/100063489279612/" target="_blank" rel="noopener noreferrer" class="chat-btn" title="Message on Facebook Messenger" aria-label="Messenger" style="background:linear-gradient(135deg,#0084ff,#00b2ff);">
+      <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2C6.5 2 2 6 2 10.5 2 13 3.4 15.1 5.6 16.4v3.1L11 18.8c.9.2 1.8.3 2.7.3 5.5 0 10-4 10-8.5S17.5 2 12 2z" fill="#fff"/>
+        <path d="M7.8 12.1 10.5 8.5 13.2 11.7 16.1 8.5 17.4 12.1 13.9 14.5 11.3 11.2 8.6 14.5z" fill="#fff"/>
+      </svg>
+      <span class="chat-label font-medium">Messenger</span>
+    </a>
 
     <a href="mailto:emmanueltonk@rediffmail.com" class="chat-btn" title="Send an Email" aria-label="Email" style="background:linear-gradient(135deg,#ef4444,#fb7185);">
       <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -442,6 +446,7 @@
   </footer>
 
   <script>
+    // Mobile menu toggle
     const btn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const iconOpen = document.getElementById('icon-open');
@@ -450,7 +455,6 @@
     btn && btn.addEventListener('click', () => {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!expanded));
-
       if (mobileMenu.hidden) {
         mobileMenu.hidden = false;
         iconOpen.classList.add('hidden');
@@ -463,9 +467,11 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Hero animation
       const hero = document.getElementById('hero-card');
       setTimeout(() => hero && hero.classList.add('hero--visible'), 120);
 
+      // Reveal animations
       const revealElems = document.querySelectorAll('[data-reveal]');
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -481,6 +487,7 @@
         revealObserver.observe(el);
       });
 
+      // Smooth scroll for internal anchors
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', (ev) => {
           const targetId = a.getAttribute('href').slice(1);
@@ -493,28 +500,27 @@
         });
       });
 
+      // Ticker pause on hover
       const ticker = document.querySelector('.ticker');
       if (ticker) {
         ticker.addEventListener('mouseenter', () => { const t = ticker.querySelector('.ticker-list'); if (t) t.style.animationPlayState = 'paused'; });
         ticker.addEventListener('mouseleave', () => { const t = ticker.querySelector('.ticker-list'); if (t) t.style.animationPlayState = 'running'; });
       }
 
+      // AJAX form submit to Formspree
       const form = document.getElementById('contact-form');
       const status = document.getElementById('form-status');
-
       if (form) {
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           status.textContent = 'Sending...';
           const data = new FormData(form);
-
           try {
             const res = await fetch(form.action, {
               method: 'POST',
               body: data,
               headers: { 'Accept': 'application/json' }
             });
-
             const json = await res.json().catch(() => ({}));
             if (res.ok) {
               status.textContent = 'Message sent. We will contact you soon.';
@@ -524,15 +530,17 @@
             }
           } catch (err) {
             status.textContent = 'Network error. Please try again later.';
+            console.error(err);
           }
         });
       }
 
+      // Messenger placeholder guard removed (we set real fb link), but keep guard for any '#'
       document.querySelectorAll('.chat-buttons a').forEach(a => {
         a.addEventListener('click', (e) => {
           if (a.getAttribute('href') === '#') {
             e.preventDefault();
-            alert('Messenger link is a placeholder. Add your actual Messenger link to enable it.');
+            alert('This link is a placeholder. Provide the real link to enable it.');
           }
         });
       });
