@@ -6,55 +6,589 @@
   <title>Emmanuel Senior Secondary School — Tonk, Rajasthan</title>
   <meta name="description" content="Emmanuel Senior Secondary School, Tonk - Education for Excellence, Values for Life" />
   <link rel="icon" href="logo.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease-out, transform 700ms ease-out; will-change: opacity, transform; }
-    .reveal.reveal--visible { opacity: 1; transform: translateY(0); }
-
-    .hero-animate { opacity: 0; transform: translateY(18px) scale(0.995); transition: opacity 900ms ease-out, transform 900ms ease-out; }
-    .hero-animate.hero--visible { opacity: 1; transform: translateY(0) scale(1); }
-
-    .chat-buttons {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      z-index: 60;
-      display: grid;
-      gap: 0.75rem;
-      align-items: end;
+    :root {
+      --bg-1: #f4f4f3;
+      --bg-2: #f8f6f3;
+      --glass: rgba(255,255,255,0.34);
+      --glass-strong: rgba(255,255,255,0.56);
+      --line: rgba(15, 23, 42, 0.08);
+      --text: #1e293b;
+      --muted: #475569;
+      --navy: #1f2a44;
+      --primary: #0ea5e9;
+      --primary-2: #2563eb;
+      --gold: #f59e0b;
+      --rose: #ef4444;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
     }
 
-    .chat-btn {
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.95), rgba(244,244,243,0.96)),
+        linear-gradient(180deg, #f6f3ee 0%, #efefee 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 18px 40px;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.32);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 18px 40px rgba(15,23,42,0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .topbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 18px;
+    }
+
+    .brand-row {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      color: white;
-      padding: .6rem .8rem;
-      border-radius: 9999px;
-      box-shadow: 0 8px 20px rgba(15,23,42,0.18);
-      transform-origin: right bottom;
-      transition: transform 160ms ease, box-shadow 160ms ease, opacity 200ms;
-      text-decoration: none;
+      justify-content: space-between;
+      gap: 18px;
     }
 
-    .chat-btn:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 14px 30px rgba(15,23,42,0.22);
-    }
-
-    .chat-icon {
-      width: 1.4rem;
-      height: 1.4rem;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
       flex-shrink: 0;
     }
 
-    @media (max-width:420px){
-      .chat-label { display:none; }
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 22px rgba(15,23,42,0.07);
     }
 
-    .ticker { overflow: hidden; position: relative; height: 2.2rem; }
-    .ticker-list { position: absolute; animation: tickerMove 12s linear infinite; }
+    .brand-text {
+      line-height: 1.2;
+      min-width: 0;
+    }
+
+    .brand-text .title {
+      font-size: clamp(0.8rem, 1.2vw, 1rem);
+      font-weight: 700;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    .brand-text .small {
+      font-size: 0.68rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .nav-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      scrollbar-width: none;
+    }
+
+    .nav-pill::-webkit-scrollbar { display: none; }
+
+    .nav-pill a {
+      color: rgba(30,41,59,0.86);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s ease, transform 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-pill a:hover {
+      color: var(--primary-2);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      margin-top: 16px;
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, rgba(10,22,28,0.35), rgba(15,23,42,0.15)),
+                  url('image1.jpg') center/cover no-repeat;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.25);
+      min-height: 420px;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,23,42,0.52), rgba(15,23,42,0.25));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      min-height: 420px;
+      padding: clamp(20px, 3vw, 38px);
+      gap: 24px;
+    }
+
+    .hero-copy {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 26px;
+      padding: clamp(20px, 3vw, 36px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .motto {
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      margin-top: 10px;
+      color: rgba(255,255,255,0.86);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .hero-desc {
+      margin-top: 18px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 640px;
+    }
+
+    .hero-list {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 18px;
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0;
+      color: rgba(255,255,255,0.95);
+      font-size: 0.96rem;
+    }
+
+    .hero-list li {
+      position: relative;
+      padding-left: 18px;
+      line-height: 1.5;
+    }
+
+    .hero-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #67e8f9;
+      font-size: 1.2rem;
+      top: -1px;
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid transparent;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 14px 26px rgba(15,23,42,0.15);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: rgba(255,255,255,0.98);
+      color: #0f172a;
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      color: white;
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+      color: white;
+    }
+
+    .hero-side {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+    }
+
+    .hero-side-card {
+      width: min(100%, 420px);
+      border-radius: 30px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+
+    .hero-side-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 360px;
+      object-fit: cover;
+    }
+
+    .section {
+      margin-top: 32px;
+    }
+
+    .content-panel {
+      background: rgba(255,255,255,0.26);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 28px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.58), 0 16px 32px rgba(15,23,42,0.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: clamp(20px, 2.4vw, 28px);
+    }
+
+    .section-header {
+      margin: 0 0 18px;
+      font-size: clamp(2rem, 3vw, 3.1rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .lead {
+      font-size: clamp(1.2rem, 2vw, 2rem);
+      color: var(--navy);
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .mini-card {
+      border-radius: 22px;
+      padding: 22px 20px;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .mini-card h3 {
+      font-size: 1.22rem;
+      margin: 0 0 8px;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+
+    .mini-card ul {
+      margin: 10px 0 0 18px;
+      padding: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .principal-box {
+      padding: 22px 20px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .principal-box h3 {
+      margin: 0 0 10px;
+      font-size: clamp(1.2rem, 1.4vw, 1.5rem);
+      color: var(--navy);
+    }
+
+    .principal-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .academics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .stud-card {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 24px;
+      padding: 18px 18px 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .stud-card h4 {
+      margin: 0 0 10px;
+      font-size: 1.06rem;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .stud-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .facility-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .facility-card {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .facility-card h4 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
+      color: var(--navy);
+    }
+
+    .facility-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .admissions-wrap {
+      margin-top: 32px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.5fr 0.75fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .admissions-box {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 28px;
+      padding: 22px 20px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .admissions-box h3,
+    .admissions-box h4 {
+      color: var(--navy);
+    }
+
+    .admissions-box ol,
+    .admissions-box ul {
+      margin-top: 12px;
+      margin-bottom: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .direction-box {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 24px;
+      padding: 18px 18px 20px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .direction-box h4 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin: 0 0 10px;
+    }
+
+    .direction-box p {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .direction-box a {
+      display: inline-block;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 14px;
+      padding: 0.8rem 1rem;
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .chip-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      list-style: none;
+      padding: 0;
+      margin: 22px 0 0;
+    }
+
+    .chip-list li {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 18px;
+      padding: 12px 14px;
+      font-weight: 600;
+      color: var(--navy);
+      text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .ticker-wrap {
+      margin-top: 24px;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 24px;
+      padding: 14px 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .ticker {
+      overflow: hidden;
+      position: relative;
+      height: 2.4rem;
+      background: rgba(14,165,233,0.06);
+      border: 1px solid rgba(14,165,233,0.12);
+      border-radius: 14px;
+      padding: 0 12px;
+    }
+
+    .ticker-list {
+      position: absolute;
+      animation: tickerMove 12s linear infinite;
+    }
+
     @keyframes tickerMove {
       0% { transform: translateY(0%); }
       25% { transform: translateY(-25%); }
@@ -63,155 +597,437 @@
       100% { transform: translateY(-100%); }
     }
 
-    .gallery-item:nth-child(3n+1) { grid-row: span 2; }
-    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; border-radius:0.5rem; }
+    .gallery-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.8fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .gallery-panel {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 24px;
+      padding: 18px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .gallery-panel h3 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      color: var(--navy);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .gallery-item {
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 10px 18px rgba(15,23,42,0.06);
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+    .gallery-item.wide {
+      grid-column: span 2;
+    }
+
+    .gallery-item.wide img {
+      height: 340px;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 22px;
+      margin-top: 28px;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 26px;
+      padding: 22px 20px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .contact-card h2,
+    .contact-card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+
+    .contact-card p {
+      margin: 8px 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .map-box {
+      margin-top: 18px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .map-box iframe {
+      display: block;
+      width: 100%;
+      min-height: 260px;
+      border: 0;
+    }
+
+    .form-box {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 26px;
+      padding: 22px 20px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .form-box label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .form-box input,
+    .form-box textarea {
+      width: 100%;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: rgba(255,255,255,0.52);
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-box input:focus,
+    .form-box textarea:focus {
+      border-color: rgba(37,99,235,0.5);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .submit-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .submit-btn {
+      border: none;
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      color: white;
+      border-radius: 14px;
+      padding: 0.9rem 1.2rem;
+      font-weight: 700;
+      box-shadow: 0 16px 28px rgba(37,99,235,0.2);
+      cursor: pointer;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 0.92rem;
+      min-height: 1.2em;
+    }
+
+    footer {
+      margin-top: 34px;
+      padding: 26px 0 40px;
+    }
+
+    .footer-shell {
+      background: rgba(15,23,42,0.82);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 26px;
+      color: rgba(255,255,255,0.82);
+      box-shadow: 0 20px 40px rgba(15,23,42,0.18);
+      padding: 22px 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 1.1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .footer-brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .footer-shell h4 {
+      margin: 0 0 12px;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .footer-shell a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+
+    .footer-shell a:hover {
+      color: white;
+    }
+
+    .footer-shell p, .footer-shell li {
+      margin: 0;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.8;
+    }
+
+    .footer-shell ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .footer-copy {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.88rem;
+    }
+
+    .floating {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 60;
+    }
+
+    .float-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 18px 32px rgba(15,23,42,0.16);
+      color: white;
+      text-decoration: none;
+    }
+
+    .float-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    .float-btn.whatsapp { background: linear-gradient(135deg, #25d366, #1cbf6a); }
+    .float-btn.messenger { background: linear-gradient(135deg, #0084ff, #00b2ff); }
+    .float-btn.email { background: linear-gradient(135deg, #ef4444, #f43f5e); }
+
+    @media (max-width: 980px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .two-col, .admissions-wrap, .contact-wrap, .gallery-layout, .footer-grid { grid-template-columns: 1fr; }
+      .card-grid, .facility-grid, .academics-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .brand-text .title { white-space: normal; }
+    }
+
+    @media (max-width: 700px) {
+      .page-shell { padding-left: 14px; padding-right: 14px; }
+      .brand-row { gap: 12px; }
+      .nav-wrap { justify-content: flex-start; }
+      .nav-pill { justify-content: flex-start; padding-left: 12px; padding-right: 12px; }
+      .hero { min-height: auto; }
+      .hero-content { padding: 16px; min-height: auto; }
+      .hero-list { grid-template-columns: 1fr; }
+      .card-grid, .facility-grid, .academics-grid, .form-grid, .chip-list { grid-template-columns: 1fr; }
+      .section-header { font-size: 2.1rem; }
+      .lead { font-size: 1.25rem; }
+      .brand .brand-text { display: none; }
+      .floating { right: 14px; bottom: 14px; }
+      .float-btn { width: 50px; height: 50px; }
+    }
   </style>
 </head>
-<body class="antialiased text-slate-800">
-
-  <!-- Header with center text menu -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 gap-3">
-        <a href="#" class="flex items-center gap-3 shrink-0">
-          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain"/>
-          <div class="hidden sm:block">
-            <div class="text-lg font-semibold leading-tight">Emmanuel Senior Secondary School</div>
-            <div class="text-xs text-slate-500">Tonk, Rajasthan 304001</div>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <img src="logo.png" alt="Emmanuel School Logo">
+          <div class="brand-text">
+            <div class="title">Emmanuel Senior Secondary School</div>
+            <div class="small">Tonk, Rajasthan 304001</div>
           </div>
-        </a>
+        </div>
 
-        <nav class="flex-1 overflow-x-auto">
-          <div class="flex items-center justify-center gap-3 sm:gap-5 md:gap-6 whitespace-nowrap py-2 text-[11px] sm:text-xs md:text-sm font-medium">
-            <a href="#home" class="text-slate-700 hover:text-sky-600 transition">Home</a>
-            <a href="#about" class="text-slate-700 hover:text-sky-600 transition">About Us</a>
-            <a href="#academics" class="text-slate-700 hover:text-sky-600 transition">Academics</a>
-            <a href="#facilities" class="text-slate-700 hover:text-sky-600 transition">Facilities</a>
-            <a href="#admissions" class="text-slate-700 hover:text-sky-600 transition">Admissions</a>
-            <a href="#faculty" class="text-slate-700 hover:text-sky-600 transition">Faculty</a>
-            <a href="#activities" class="text-slate-700 hover:text-sky-600 transition">Activities</a>
-            <a href="#gallery" class="text-slate-700 hover:text-sky-600 transition">Gallery</a>
-            <a href="#notices" class="text-slate-700 hover:text-sky-600 transition">Notices</a>
-            <a href="#contact" class="text-slate-700 hover:text-sky-600 transition">Contact Us</a>
-          </div>
-        </nav>
+        <div class="nav-wrap">
+          <nav class="nav-pill" aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#academics">Academics</a>
+            <a href="#facilities">Facilities</a>
+            <a href="#admissions">Admissions</a>
+            <a href="#faculty">Faculty</a>
+            <a href="#activities">Activities</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#notices">Notices</a>
+            <a href="#contact">Contact Us</a>
+          </nav>
+        </div>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main class="overflow-x-hidden">
-    <!-- Hero -->
-    <section id="home" class="relative">
-      <div class="relative bg-cover bg-center" style="background-image:linear-gradient(rgba(2,6,23,0.45), rgba(2,6,23,0.25)), url('image1.jpg');">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="py-24 sm:py-28 lg:py-32">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-              <div class="hero-animate p-6 sm:p-10 rounded-xl bg-white/5 backdrop-blur-sm" id="hero-card">
-                <p class="text-sm text-sky-200 font-medium mb-2">Welcome</p>
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white">Welcome to Emmanuel Senior Secondary School.</h1>
-                <p class="mt-3 text-slate-100/90 italic">"Education for Excellence, Values for Life"</p>
-                <p class="mt-6 text-slate-200 max-w-xl">
-                  Welcome to Emmanuel Senior Secondary School, where learning meets innovation and students are encouraged to achieve their full potential. Our mission is to provide quality education in a safe, supportive, and inspiring environment. We focus on academic excellence, discipline, creativity, character development, and the overall growth of every student.
-                </p>
-
-                <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-100">
-                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Quality Education</li>
-                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Experienced Teachers</li>
-                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Smart Classrooms and Computer Education</li>
-                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Science and Computer Laboratories</li>
-                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Sports and Extracurricular Activities</li>
-                  <li class="flex items-start gap-2"><span class="text-sky-300">•</span> Moral Values and Personality Development</li>
-                </ul>
-
-                <div class="mt-8 flex flex-wrap gap-3">
-                  <a href="#about" class="inline-flex items-center px-5 py-3 bg-white text-slate-900 rounded-lg shadow hover:shadow-md">Explore Our School</a>
-                  <a href="#admissions" class="inline-flex items-center px-5 py-3 bg-sky-600 text-white rounded-lg hover:bg-sky-700">Admissions Open</a>
-                  <a href="#contact" class="inline-flex items-center px-5 py-3 border border-white/20 text-white rounded-lg hover:bg-white/5">Contact Us</a>
-                </div>
-              </div>
-
-              <div class="reveal p-4">
-                <div class="rounded-xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-sm">
-                  <img src="image1.jpg" alt="Emmanuel School Building" class="w-full h-72 sm:h-96 object-cover"/>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div class="lg:col-span-2">
-          <h2 class="text-2xl font-bold mb-3 reveal" data-reveal>About Us</h2>
-          <p class="text-slate-700 reveal" data-reveal>
-            Emmanuel Senior Secondary School is dedicated to providing students with a strong academic foundation and the skills they need to succeed in life. We believe that every child has unique talents and abilities. Our teaching approach encourages curiosity, critical thinking, teamwork, and lifelong learning.
+  <div class="page-shell">
+    <section id="home" class="hero section">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-copy glass">
+          <div class="kicker">Welcome</div>
+          <h1>Welcome to Emmanuel Senior Secondary School.</h1>
+          <div class="motto">"Education for Excellence, Values for Life"</div>
+          <p class="hero-desc">
+            Welcome to Emmanuel Senior Secondary School, where learning meets innovation and students are encouraged to achieve their full potential. Our mission is to provide quality education in a safe, supportive, and inspiring environment. We focus on academic excellence, discipline, creativity, character development, and the overall growth of every student.
           </p>
 
-          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="reveal" data-reveal>
-              <h3 class="font-semibold">Our Vision</h3>
-              <p class="text-slate-700 mt-2">To become a leading educational institution that develops knowledgeable, confident, responsible, and successful individuals.</p>
-            </div>
-            <div class="reveal" data-reveal>
-              <h3 class="font-semibold">Our Mission</h3>
-              <ul class="list-disc pl-5 mt-2 text-slate-700">
-                <li>To provide quality education to every student.</li>
-                <li>To encourage creativity and independent thinking.</li>
-                <li>To develop discipline, honesty, and respect.</li>
-                <li>To promote sports, arts, technology, and innovation.</li>
-                <li>To prepare students for higher education and future careers.</li>
-              </ul>
-            </div>
+          <ul class="hero-list">
+            <li>Quality Education</li>
+            <li>Experienced Teachers</li>
+            <li>Smart Classrooms and Computer Education</li>
+            <li>Science and Computer Laboratories</li>
+            <li>Sports and Extracurricular Activities</li>
+            <li>Moral Values and Personality Development</li>
+          </ul>
+
+          <div class="hero-actions">
+            <a href="#about" class="btn btn-primary">Explore Our School</a>
+            <a href="#admissions" class="btn btn-secondary">Admissions Open</a>
+            <a href="#contact" class="btn btn-ghost">Contact Us</a>
           </div>
         </div>
 
-        <aside class="bg-slate-50 p-6 rounded-lg shadow-sm reveal" data-reveal>
-          <h3 class="text-lg font-semibold mb-3">Message from the Principal</h3>
-          <p class="text-slate-700">Dear Students, Parents, and Visitors, It gives me immense pleasure to welcome you to our school website. Education is not only about gaining knowledge; it is also about developing character, confidence, and responsibility. At our school, we strive to create an environment where every student feels encouraged to learn, explore, and achieve their goals. We believe that the partnership between teachers, parents, and students is essential for success. Together, we can build a brighter future for our children. With best wishes, Principal.</p>
-        </aside>
+        <div class="hero-side">
+          <div class="hero-side-card">
+            <img src="image1.jpg" alt="Emmanuel School Building">
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Academics -->
-    <section id="academics" class="bg-white/50 border-t border-b border-slate-100 py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold mb-6 reveal" data-reveal>Academics</h2>
-        <p class="text-slate-700 reveal" data-reveal>We provide a structured learning environment designed to meet the educational needs of students at different stages.</p>
+    <section id="about" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">About Us</h2>
 
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-            <h4 class="font-semibold">Primary Classes</h4>
-            <ul class="mt-3 text-slate-600 list-disc pl-5">
+        <div class="two-col">
+          <div>
+            <p class="lead">
+              Emmanuel Senior Secondary School is dedicated to providing students with a strong academic foundation and the skills they need to succeed in life. We believe that every child has unique talents and abilities. Our teaching approach encourages curiosity, critical thinking, teamwork, and lifelong learning.
+            </p>
+
+            <div class="card-grid">
+              <div class="mini-card">
+                <h3>Our Vision</h3>
+                <p>To become a leading educational institution that develops knowledgeable, confident, responsible, and successful individuals.</p>
+              </div>
+
+              <div class="mini-card">
+                <h3>Our Mission</h3>
+                <ul>
+                  <li>To provide quality education to every student.</li>
+                  <li>To encourage creativity and independent thinking.</li>
+                  <li>To develop discipline, honesty, and respect.</li>
+                  <li>To promote sports, arts, technology, and innovation.</li>
+                  <li>To prepare students for higher education and future careers.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="principal-box">
+            <h3>Message from the Principal</h3>
+            <p>
+              Dear Students, Parents, and Visitors, It gives me immense pleasure to welcome you to our school website. Education is not only about gaining knowledge; it is also about developing character, confidence, and responsibility. At our school, we strive to create an environment where every student feels encouraged to learn, explore, and achieve their goals. We believe that the partnership between teachers, parents, and students is essential for success. Together, we can build a brighter future for our children. With best wishes, Principal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="academics" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">Academics</h2>
+        <p class="lead">We provide a structured learning environment designed to meet the educational needs of students at different stages.</p>
+
+        <div class="academics-grid">
+          <div class="stud-card">
+            <h4>Primary Classes</h4>
+            <ul>
               <li>Foundational literacy and numeracy</li>
               <li>Creative learning activities</li>
               <li>Language development</li>
               <li>Basic computer education</li>
             </ul>
           </div>
-          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-            <h4 class="font-semibold">Middle Classes</h4>
-            <ul class="mt-3 text-slate-600 list-disc pl-5">
+
+          <div class="stud-card">
+            <h4>Middle Classes</h4>
+            <ul>
               <li>Mathematics and Science</li>
               <li>English and Hindi</li>
               <li>Social Science</li>
               <li>Computer Science, Art, sports, and life skills</li>
             </ul>
           </div>
-          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-            <h4 class="font-semibold">Secondary Classes</h4>
-            <ul class="mt-3 text-slate-600 list-disc pl-5">
+
+          <div class="stud-card">
+            <h4>Secondary Classes</h4>
+            <ul>
               <li>Subject-focused learning</li>
               <li>Practical activities and projects</li>
               <li>Examination preparation</li>
               <li>Career awareness and guidance</li>
             </ul>
           </div>
-          <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-            <h4 class="font-semibold">Senior Secondary</h4>
-            <ul class="mt-3 text-slate-600 list-disc pl-5">
+
+          <div class="stud-card">
+            <h4>Senior Secondary Classes</h4>
+            <ul>
               <li>Science stream</li>
               <li>Commerce stream</li>
               <li>Humanities stream</li>
@@ -221,49 +1037,55 @@
       </div>
     </section>
 
-    <!-- Facilities -->
-    <section id="facilities" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-2xl font-bold mb-4 reveal" data-reveal>Facilities</h2>
-      <p class="text-slate-700 reveal" data-reveal>Our school aims to provide facilities that support academic achievement and the all-round development of students.</p>
+    <section id="facilities" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">Facilities</h2>
+        <p class="lead">Our school aims to provide facilities that support academic achievement and the all-round development of students.</p>
 
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-          <h4 class="font-semibold">Smart Classrooms</h4>
-          <p class="mt-2 text-slate-600">Technology-supported teaching and learning.</p>
-        </div>
-        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-          <h4 class="font-semibold">Computer Laboratory</h4>
-          <p class="mt-2 text-slate-600">Practical computer education and digital skills.</p>
-        </div>
-        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-          <h4 class="font-semibold">Science Laboratory</h4>
-          <p class="mt-2 text-slate-600">Hands-on learning through experiments.</p>
-        </div>
-        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-          <h4 class="font-semibold">Library</h4>
-          <p class="mt-2 text-slate-600">Books and resources that encourage reading.</p>
-        </div>
-        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-          <h4 class="font-semibold">Sports Facilities</h4>
-          <p class="mt-2 text-slate-600">Opportunities to develop fitness, teamwork, and sportsmanship.</p>
-        </div>
-        <div class="p-5 bg-white rounded-lg shadow-sm reveal" data-reveal>
-          <h4 class="font-semibold">Transport & Safe Campus</h4>
-          <p class="mt-2 text-slate-600">School transportation (where available) and a supportive environment that prioritises student safety.</p>
+        <div class="facility-grid">
+          <div class="facility-card">
+            <h4>Smart Classrooms</h4>
+            <p>Technology-supported teaching and learning.</p>
+          </div>
+
+          <div class="facility-card">
+            <h4>Computer Laboratory</h4>
+            <p>Practical computer education and digital skills.</p>
+          </div>
+
+          <div class="facility-card">
+            <h4>Science Laboratory</h4>
+            <p>Hands-on learning through experiments.</p>
+          </div>
+
+          <div class="facility-card">
+            <h4>Library</h4>
+            <p>Books and resources that encourage reading.</p>
+          </div>
+
+          <div class="facility-card">
+            <h4>Sports Facilities</h4>
+            <p>Opportunities to develop fitness, teamwork, and sportsmanship.</p>
+          </div>
+
+          <div class="facility-card">
+            <h4>Transport & Safe Campus</h4>
+            <p>School transportation, where available, and a supportive environment that prioritises student safety.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Admissions -->
-    <section id="admissions" class="bg-sky-50 py-16">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row gap-8 items-start">
-          <div class="md:flex-1">
-            <h2 class="text-2xl font-bold reveal" data-reveal>Admissions Open</h2>
-            <p class="mt-3 text-slate-700 reveal" data-reveal>Give your child the opportunity to learn, grow, and succeed. We welcome applications from students seeking quality education and a supportive learning environment.</p>
+    <section id="admissions" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">Admissions Open</h2>
 
-            <h3 class="mt-6 font-semibold">Admission Process</h3>
-            <ol class="list-decimal pl-5 mt-2 text-slate-700">
+        <div class="admissions-wrap">
+          <div class="admissions-box">
+            <p class="lead" style="font-size: 1.2rem; margin-bottom: 10px;">Give your child the opportunity to learn, grow, and succeed. We welcome applications from students seeking quality education and a supportive learning environment.</p>
+
+            <h3>Admission Process</h3>
+            <ol>
               <li>Obtain the admission form</li>
               <li>Complete it with required details</li>
               <li>Submit necessary documents</li>
@@ -271,97 +1093,107 @@
               <li>Complete formalities</li>
             </ol>
 
-            <h4 class="mt-4 font-semibold">Documents Required</h4>
-            <ul class="list-disc pl-5 mt-2 text-slate-700">
+            <h4 style="margin-top: 18px;">Documents Required</h4>
+            <ul>
               <li>Birth certificate</li>
               <li>Previous school's report card</li>
               <li>Transfer certificate</li>
               <li>Passport-size photographs</li>
             </ul>
 
-            <p class="mt-4 text-slate-700">Contact the school office for dates, eligibility, and fees.</p>
+            <p style="margin-top: 18px; color: var(--muted);">Contact the school office for dates, eligibility, and fees.</p>
 
-            <div class="mt-6">
-              <a href="#contact" class="inline-block px-6 py-3 bg-sky-600 text-white rounded-lg hover:bg-sky-700">Apply for Admission</a>
+            <div style="margin-top: 18px;">
+              <a href="#contact" class="btn btn-secondary" style="padding: 0.8rem 1.1rem; border-radius: 14px;">Apply for Admission</a>
             </div>
           </div>
 
-          <aside class="md:w-72 bg-white p-5 rounded-lg shadow-sm reveal" data-reveal>
-            <h4 class="font-semibold">Need Directions?</h4>
-            <p class="mt-2 text-slate-600">Find us in Tonk, Rajasthan 304001.</p>
-            <a class="mt-4 inline-block px-4 py-2 bg-white border border-slate-200 rounded hover:bg-slate-50" href="https://www.google.com/maps/search/?api=1&query=Emmanuel+Senior+Secondary+School+Tonk" target="_blank" rel="noopener noreferrer">Get Directions</a>
-          </aside>
+          <div class="direction-box">
+            <h4>Need Directions?</h4>
+            <p>Find us in Tonk, Rajasthan 304001.</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Emmanuel+Senior+Secondary+School+Tonk" target="_blank" rel="noopener noreferrer">Get Directions</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Faculty -->
-    <section id="faculty" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-2xl font-bold mb-6 reveal" data-reveal>Faculty</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-5 rounded-lg shadow-sm reveal" data-reveal>
-          <h3 class="font-semibold text-lg">Academic Excellence</h3>
-          <p class="mt-2 text-slate-700">Our teachers focus on conceptual learning, discipline, and personalized guidance that supports every learner.</p>
-        </div>
-        <div class="bg-white p-5 rounded-lg shadow-sm reveal" data-reveal>
-          <h3 class="font-semibold text-lg">Experienced Mentors</h3>
-          <p class="mt-2 text-slate-700">Dedicated faculty members encourage curiosity, confidence, and responsibility in every student.</p>
-        </div>
-        <div class="bg-white p-5 rounded-lg shadow-sm reveal" data-reveal>
-          <h3 class="font-semibold text-lg">Holistic Development</h3>
-          <p class="mt-2 text-slate-700">We nurture academic growth alongside values, creativity, discipline, and lifelong learning.</p>
+    <section id="faculty" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">Faculty</h2>
+        <div class="card-grid">
+          <div class="mini-card">
+            <h3>Academic Excellence</h3>
+            <p>Our teachers focus on conceptual learning, discipline, and personalized guidance that supports every learner.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Experienced Mentors</h3>
+            <p>Dedicated faculty members encourage curiosity, confidence, and responsibility in every student.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Holistic Development</h3>
+            <p>We nurture academic growth alongside values, creativity, discipline, and lifelong learning.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Activities -->
-    <section id="activities" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-2xl font-bold reveal" data-reveal>School Activities</h2>
-      <p class="text-slate-700 mt-3 reveal" data-reveal>Learning Beyond the Classroom. We encourage students to participate in activities that help develop confidence, creativity, and leadership.</p>
+    <section id="activities" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">School Activities</h2>
+        <p class="lead">Learning Beyond the Classroom. We encourage students to participate in activities that help develop confidence, creativity, and leadership.</p>
 
-      <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Annual Day Celebrations</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Independence Day and Republic Day</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Sports Day</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Science Exhibitions</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Quiz Competitions</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Debate and Speech Competitions</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Art and Craft Activities</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Cultural Programmes</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Environmental Awareness Campaigns</li>
-        <li class="bg-white p-4 rounded-lg shadow-sm reveal" data-reveal>Computer and Technology Projects</li>
-      </ul>
+        <ul class="chip-list">
+          <li>Annual Day Celebrations</li>
+          <li>Independence Day and Republic Day</li>
+          <li>Sports Day</li>
+          <li>Science Exhibitions</li>
+          <li>Quiz Competitions</li>
+          <li>Debate and Speech Competitions</li>
+          <li>Art and Craft Activities</li>
+          <li>Cultural Programmes</li>
+          <li>Environmental Awareness Campaigns</li>
+          <li>Computer and Technology Projects</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- Notices & Gallery -->
-    <section id="notices" class="bg-slate-50 py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row gap-8">
-          <div class="lg:w-1/3 bg-white p-5 rounded-lg shadow-sm">
-            <h3 class="font-semibold mb-3">Latest Updates</h3>
-            <div class="ticker bg-sky-50 border border-sky-100 rounded px-4 py-2">
-              <div class="ticker-list">
-                <div class="py-1 text-slate-700">Admissions open for Academic Year 2026-27 — Apply Now</div>
-                <div class="py-1 text-slate-700">Exam schedule released for Class X - Check Notices</div>
-                <div class="py-1 text-slate-700">School Holiday on 2nd Oct — Gandhi Jayanti</div>
-                <div class="py-1 text-slate-700">New Computer Lab introduced with 25 workstations</div>
-              </div>
-            </div>
+    <section id="notices" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">Notices & Updates</h2>
 
-            <div class="mt-6">
-              <a href="#admissions" class="inline-block px-4 py-2 bg-sky-600 text-white rounded">View All Notices</a>
+        <div class="ticker-wrap">
+          <div class="ticker">
+            <div class="ticker-list">
+              <div class="py-1 text-slate-700">Admissions open for Academic Year 2026-27 — Apply Now</div>
+              <div class="py-1 text-slate-700">Exam schedule released for Class X - Check Notices</div>
+              <div class="py-1 text-slate-700">School Holiday on 2nd Oct — Gandhi Jayanti</div>
+              <div class="py-1 text-slate-700">New Computer Lab introduced with 25 workstations</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-layout">
+          <div class="gallery-panel">
+            <h3>Latest Updates</h3>
+            <div class="mini-card" style="margin-top: 0;">
+              <p>Admissions open for new session.</p>
+              <p style="margin-top: 8px;">School examinations and holiday schedules will be shared soon.</p>
             </div>
           </div>
 
-          <div id="gallery" class="lg:w-2/3">
-            <h3 class="font-semibold mb-4">Memories & Achievements — Gallery</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
-              <div class="gallery-item reveal" data-reveal>
-                <img src="image1.jpg" alt="School Campus" loading="lazy">
+          <div id="gallery" class="gallery-panel">
+            <h3>Memories & Achievements</h3>
+            <div class="gallery-grid">
+              <div class="gallery-item wide">
+                <img src="image1.jpg" alt="School Campus">
               </div>
 
-              <div class="gallery-item reveal" data-reveal>
-                <img src="classroom-activity.jpg" alt="Classroom activity" loading="lazy">
+              <div class="gallery-item">
+                <img src="classroom-activity.jpg" alt="Classroom activity">
+              </div>
+
+              <div class="gallery-item">
+                <img src="classroom-activity.jpg" alt="Classroom activity">
               </div>
             </div>
           </div>
@@ -370,183 +1202,131 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div>
-          <h2 class="text-2xl font-bold reveal" data-reveal>Contact Us</h2>
-          <p class="mt-3 text-slate-700 reveal" data-reveal><strong>Address:</strong> Jaipur Road, near Bus Stand, Tonk, Rajasthan 304001, India</p>
-          <p class="text-slate-700 reveal" data-reveal><strong>Phone:</strong> 01432-248049 / 9414201347</p>
-          <p class="text-slate-700 reveal" data-reveal><strong>Email:</strong> <a href="mailto:emmanueltonk@rediffmail.com" class="text-sky-600">emmanueltonk@rediffmail.com</a></p>
-          <p class="text-slate-700 reveal" data-reveal><strong>Website:</strong> <a href="http://www.emmanuelschooltonk.com" target="_blank" rel="noopener noreferrer" class="text-sky-600">www.emmanuelschooltonk.com</a></p>
-          <p class="text-slate-700 reveal" data-reveal><strong>Affiliation:</strong> CBSE (Affiliation No: 1730313)</p>
-          <p class="text-slate-700 reveal" data-reveal><strong>Principal:</strong> Mrs. Shiby P Assi</p>
+    <section id="contact" class="section">
+      <div class="content-panel">
+        <h2 class="section-header">Contact Us</h2>
 
-          <div class="mt-6">
-            <iframe class="w-full h-64 rounded-lg border" src="https://www.google.com/maps?q=Emmanuel+Senior+Secondary+School+Tonk&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to Emmanuel Senior Secondary School"></iframe>
-            <p class="mt-2 text-sm text-slate-500">Map shows the school location and nearby business/profile details.</p>
+        <div class="contact-wrap">
+          <div class="contact-card">
+            <p><strong>Address:</strong> Jaipur Road, near Bus Stand, Tonk, Rajasthan 304001, India</p>
+            <p><strong>Phone:</strong> 01432-248049 / 9414201347</p>
+            <p><strong>Email:</strong> <a href="mailto:emmanueltonk@rediffmail.com">emmanueltonk@rediffmail.com</a></p>
+            <p><strong>Website:</strong> <a href="http://www.emmanuelschooltonk.com" target="_blank" rel="noopener noreferrer">www.emmanuelschooltonk.com</a></p>
+            <p><strong>Affiliation:</strong> CBSE (Affiliation No: 1730313)</p>
+            <p><strong>Principal:</strong> Mrs. Shiby P Assi</p>
+
+            <div class="map-box">
+              <iframe src="https://www.google.com/maps?q=Emmanuel+Senior+Secondary+School+Tonk&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to Emmanuel Senior Secondary School"></iframe>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <h3 class="font-semibold mb-3 reveal" data-reveal>Send a Message</h3>
+          <div class="form-box">
+            <h3>Send a Message</h3>
+            <form id="contact-form" action="https://formspree.io/f/xaeqkpal" method="POST" novalidate>
+              <input type="hidden" name="_subject" value="Website contact form submission" />
 
-          <form id="contact-form" class="space-y-4 bg-white p-6 rounded-lg shadow-sm reveal" data-reveal action="https://formspree.io/f/xaeqkpal" method="POST" novalidate>
-            <input type="hidden" name="_subject" value="Website contact form submission" />
+              <div class="form-grid">
+                <div>
+                  <label for="name">Student / Parent Name</label>
+                  <input id="name" name="name" required placeholder="Full name">
+                </div>
 
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Student / Parent Name</label>
-              <input required name="name" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Full name">
-            </div>
+                <div>
+                  <label for="phone">Phone</label>
+                  <input id="phone" name="phone" required placeholder="+91 9xxxxxxxxx">
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium text-slate-700">Email</label>
-                <input required type="email" name="email" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="example@mail.com">
+                <div style="grid-column: 1 / -1;">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" name="email" required placeholder="example@mail.com">
+                </div>
+
+                <div style="grid-column: 1 / -1;">
+                  <label for="subject">Subject</label>
+                  <input id="subject" name="subject" placeholder="Subject">
+                </div>
+
+                <div style="grid-column: 1 / -1;">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="5" required placeholder="Write your message..."></textarea>
+                </div>
               </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-700">Phone</label>
-                <input required name="phone" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="+91 9xxxxxxxxx">
+
+              <div class="submit-row">
+                <button type="submit" class="submit-btn">Submit Message</button>
+                <div id="form-status" class="status" aria-live="polite"></div>
               </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Subject</label>
-              <input name="subject" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Subject">
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Message</label>
-              <textarea name="message" rows="4" class="mt-1 block w-full border border-slate-200 rounded px-3 py-2" placeholder="Write your message..." required></textarea>
-            </div>
-
-            <div class="flex items-center gap-3">
-              <button type="submit" class="px-5 py-3 bg-sky-600 text-white rounded-lg">Submit Message</button>
-              <div id="form-status" class="text-sm text-slate-600" aria-live="polite"></div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </section>
-  </main>
-
-  <!-- Floating Chat Buttons -->
-  <div class="chat-buttons" aria-hidden="false">
-    <a href="https://wa.me/919414201347" target="_blank" rel="noopener noreferrer" class="chat-btn" title="Chat on WhatsApp" aria-label="WhatsApp">
-      <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M21.7 5.3C20.2 3.8 18.2 3 16 3c-4.4 0-8 3.6-8 8 0 1.4.4 2.7 1.1 3.9L6 21l6.3-3.3c1.1.6 2.4 1 3.7 1 4.4 0 8-3.6 8-8 0-2.2-.8-4.2-2.3-5.7z" fill="#fff"/>
-      </svg>
-      <span class="chat-label font-medium">WhatsApp</span>
-    </a>
-
-    <a href="https://www.facebook.com/100063489279612/" target="_blank" rel="noopener noreferrer" class="chat-btn" title="Message on Facebook Messenger" aria-label="Messenger" style="background:linear-gradient(135deg,#0084ff,#00b2ff);">
-      <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 2C6.5 2 2 6 2 10.5 2 13 3.4 15.1 5.6 16.4v3.1L11 18.8c.9.2 1.8.3 2.7.3 5.5 0 10-4 10-8.5S17.5 2 12 2z" fill="#fff"/>
-        <path d="M7.8 12.1 10.5 8.5 13.2 11.7 16.1 8.5 17.4 12.1 13.9 14.5 11.3 11.2 8.6 14.5z" fill="#fff"/>
-      </svg>
-      <span class="chat-label font-medium">Messenger</span>
-    </a>
-
-    <a href="mailto:emmanueltonk@rediffmail.com" class="chat-btn" title="Send an Email" aria-label="Email" style="background:linear-gradient(135deg,#ef4444,#fb7185);">
-      <svg class="chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v.5L12 13 3 7.5V7z" fill="#fff"/>
-        <path d="M3 8.6V17a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.6L12.4 13.6a1 1 0 0 1-1.4 0L3 8.6z" fill="#fff"/>
-      </svg>
-      <span class="chat-label font-medium">Email</span>
-    </a>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-slate-900 text-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-        <div>
-          <img src="logo.png" alt="Emmanuel School Logo" class="h-10 w-10 object-contain mb-3"/>
-          <p>Empowering young minds through knowledge, values, and innovation</p>
-        </div>
-        <div>
-          <h4 class="font-semibold mb-2">Quick Links</h4>
-          <ul class="space-y-1 text-slate-300">
-            <li><a href="#about" class="hover:text-white">About Us</a></li>
-            <li><a href="#admissions" class="hover:text-white">Admissions</a></li>
-            <li><a href="#gallery" class="hover:text-white">Gallery</a></li>
-            <li><a href="#contact" class="hover:text-white">Contact Us</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-semibold mb-2">Contact</h4>
-          <p class="text-slate-300">Address: Jaipur Road, near Bus Stand, Tonk, Rajasthan 304001</p>
-          <p class="text-slate-300">Phone: 01432-248049 / 9414201347</p>
-          <p class="text-slate-300">Email: <a href="mailto:emmanueltonk@rediffmail.com" class="text-sky-400">emmanueltonk@rediffmail.com</a></p>
-          <p class="text-slate-300">Affiliation: CBSE (Affiliation No: 1730313)</p>
-        </div>
-      </div>
+  <!-- Floating buttons -->
+  <div class="floating">
+    <a class="float-btn whatsapp" href="https://wa.me/919414201347" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.73 11.73 0 0 0 12.08 0C5.5 0 .08 5.41.08 12.09c0 2.13.55 4.22 1.6 6.06L0 24l6.04-1.58a11.99 11.99 0 0 0 6.03 1.93h.01c6.58 0 11.94-5.41 11.94-12.08 0-3.21-1.25-6.23-3.5-8.49zm-8.44 18.38h-.01a9.96 9.96 0 0 1-5.08-1.39l-.36-.21-3.58.94 1-3.48-.24-.36A9.92 9.92 0 0 1 2.09 12.1c0-5.47 4.46-9.93 9.94-9.93a9.88 9.88 0 0 1 7.08 3.01 9.9 9.9 0 0 1 2.95 7.05c0 5.48-4.46 9.94-9.94 9.94zm5.47-7.46c-.3-.15-1.78-.88-2.06-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.41-1.49-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.52.1-.2.05-.39-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.08-.8.39-.28.31-1.08 1.06-1.08 2.6 0 1.55 1.11 3.02 1.27 3.22.16.2 2.18 3.32 5.28 4.66.74.32 1.32.52 1.77.67.75.24 1.43.21 1.96.13.6-.09 1.78-.73 2.03-1.43.25-.7.25-1.3.17-1.42-.08-.12-.28-.2-.58-.35z"/></svg>
+    </a>
 
-      <div class="mt-8 border-t border-slate-800 pt-6 text-sm text-slate-400 text-center">
-        © 2026 Emmanuel Senior Secondary School. All rights reserved
-      </div>
-    </div>
-  </footer>
+    <a class="float-btn messenger" href="https://www.facebook.com/100063489279612/" target="_blank" rel="noopener noreferrer" aria-label="Messenger">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.49 2 2 5.62 2 10.23c0 2.4 1.2 4.52 3.08 5.96v3.79l2.98-1.63c.78.2 1.6.31 2.45.31 5.51 0 10-3.62 10-8.23S17.51 2 12 2zm1.13 12.05-2.82-3.02-5.52 3.02 6.08-6.49 2.87 3.02 5.53-3.02-6.14 6.49z"/></svg>
+    </a>
+
+    <a class="float-btn email" href="mailto:emmanueltonk@rediffmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.2-8 5.34-8-5.34V6.5l8 5.34 8-5.34v1.7z"/></svg>
+    </a>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const hero = document.getElementById('hero-card');
-      setTimeout(() => hero && hero.classList.add('hero--visible'), 120);
+      if (hero) {
+        setTimeout(() => hero.classList.add('hero--visible'), 80);
+      }
 
       const revealElems = document.querySelectorAll('[data-reveal]');
       const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('reveal--visible');
             revealObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.15 });
+      }, { threshold: 0.12 });
 
-      revealElems.forEach(el => {
+      revealElems.forEach((el) => {
         el.classList.add('reveal');
         revealObserver.observe(el);
       });
 
-      document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', (ev) => {
-          const targetId = a.getAttribute('href').slice(1);
-          if (!targetId) return;
-          const el = document.getElementById(targetId);
-          if (el) {
-            ev.preventDefault();
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
-      });
-
-      const ticker = document.querySelector('.ticker');
-      if (ticker) {
-        ticker.addEventListener('mouseenter', () => { const t = ticker.querySelector('.ticker-list'); if (t) t.style.animationPlayState = 'paused'; });
-        ticker.addEventListener('mouseleave', () => { const t = ticker.querySelector('.ticker-list'); if (t) t.style.animationPlayState = 'running'; });
-      }
-
       const form = document.getElementById('contact-form');
       const status = document.getElementById('form-status');
+
       if (form) {
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
-          status.textContent = 'Sending...';
+          if (status) status.textContent = 'Sending...';
+
           const data = new FormData(form);
+
           try {
-            const res = await fetch(form.action, {
+            const response = await fetch(form.action, {
               method: 'POST',
               body: data,
               headers: { 'Accept': 'application/json' }
             });
-            const json = await res.json().catch(() => ({}));
-            if (res.ok) {
-              status.textContent = 'Message sent. We will contact you soon.';
+
+            const json = await response.json().catch(() => ({}));
+
+            if (response.ok) {
+              if (status) status.textContent = 'Message sent. We will contact you soon.';
               form.reset();
             } else {
-              status.textContent = json.error || 'Submission failed. Please try again.';
+              if (status) status.textContent = json.error || 'Submission failed. Please try again.';
             }
           } catch (err) {
-            status.textContent = 'Network error. Please try again later.';
+            if (status) status.textContent = 'Network error. Please try again later.';
             console.error(err);
           }
         });
